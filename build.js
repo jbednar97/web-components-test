@@ -11,6 +11,5 @@ esbuild
         outfile: "dist/web-components.js",
         minify: true,
         sourcemap: true,
-        external: ["@uppy/utils/lib/emitSocketProgress"],
     })
     .catch(() => process.exit(1));
