@@ -10,8 +10,12 @@ const Alert = ({ message }: { message: string }) => (
 // Convert to Web Components
 const WebButton = r2wc(Button, { props: { label: "string" } });
 const WebAlert = r2wc(Alert);
-const WebImageUploader = r2wc(ImageUploader);
+const WebImageUploader = r2wc(ImageUploader, {
+    props: {
+        onProcessed: "function",
+    },
+});
 // Register them
 customElements.define("web-button", WebButton);
 customElements.define("web-alert", WebAlert);
-customElements.define("web-image-uploader", WebImageUploader);
+customElements.define("image-uploader", WebImageUploader);
