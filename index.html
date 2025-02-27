@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/@jaber-dev/web-components-registry@latest/dist/web-components.css"
+        />
+        <title>Autoenhance.ai SDK Demo</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/@jaber-dev/web-components-registry@latest/dist/web-components.js"></script>
+    </head>
+    <body class="bg-gray-100 min-h-screen p-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold mb-8 text-center">
+                Autoenhance.ai SDK Demo
+            </h1>
+            <form
+                id="listingForm"
+                class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md"
+            >
+                <label
+                    for="propertyTitle"
+                    class="block text-sm font-medium mb-2"
+                >
+                    Property Title
+                </label>
+                <input
+                    type="text"
+                    placeholder="2121 Main St, San Francisco, CA 94101"
+                    name="propertyTitle"
+                    class="w-full p-2 border border-gray-300 rounded-md mb-4"
+                />
+                <label
+                    for="propertyDescription"
+                    class="block text-sm font-medium mb-2"
+                >
+                    Property Description
+                </label>
+                <textarea
+                    placeholder="3 bed, 2 bath, 1,500 sqft"
+                    name="propertyDescription"
+                    class="w-full p-2 border border-gray-300 rounded-md mb-2"
+                    rows="4"
+                ></textarea>
+                <label for="price" class="block text-sm font-medium mb-2">
+                    Price
+                </label>
+                <input
+                    type="text"
+                    placeholder="$1,000,000"
+                    name="price"
+                    class="w-full p-2 border border-gray-300 rounded-md mb-4"
+                />
+                <image-uploader
+                    id="imageUploader"
+                    onProcessed="onProcessed"
+                ></image-uploader>
+                <button
+                    id="submitButton"
+                    class="bg-blue-500 text-white p-2 rounded-md mt-4 w-full hidden"
+                    type="submit"
+                >
+                    Submit Listing
+                </button>
+            </form>
+
+            <!-- Container for displaying the formatted form data -->
+            <div
+                id="formDataDisplay"
+                class="max-w-2xl mx-auto mt-6 p-4 bg-gray-50 rounded-lg shadow-md hidden"
+            ></div>
+
+            <script>
+                function onProcessed() {
+                    document
+                        .getElementById("submitButton")
+                        .classList.remove("hidden");
+                }
+                document
+                    .getElementById("listingForm")
+                    .addEventListener("submit", (e) => {
+                        e.preventDefault();
+                        const data = new FormData(e.target);
+                        const formData = Object.fromEntries(data.entries());
+
+                        const formattedData = Object.entries(formData)
+                            .map(
+                                ([key, value]) =>
+                                    `<strong>${key}:</strong> ${value}`
+                            )
+                            .join("<br>");
+
+                        document.getElementById("formDataDisplay").innerHTML =
+                            formattedData;
+                        document
+                            .getElementById("formDataDisplay")
+                            .classList.remove("hidden");
+                    });
+            </script>
+        </div>
+    </body>
+</html>
